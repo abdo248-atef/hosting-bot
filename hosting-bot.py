@@ -1,3 +1,4 @@
+# Colored by 𝙰𝙿𝙾 𝙵𝙰𝚁𝙴𝚂 (@i_mmx)
 import telebot
 import subprocess
 import os
@@ -311,7 +312,7 @@ def get_thumb():
 def locked_msg(chat_id):
     text = "🔒 <b>البوت مغلق حالياً</b>\n\nعذراً، البوت مغلق مؤقتاً من قبل صاحب البوت.\n\nيمكنك التواصل معنا عبر الزر أدناه."
     markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("👨‍💻 تواصل مع المطور", url=f"tg://user?id={ADMIN_ID}"))
+    markup.add(types.InlineKeyboardButton("‍ تواصل مع المطور", url=f"tg://user?id={ADMIN_ID}", style="success"))
     send_msg(chat_id, deco("🔒 البوت مغلق", text), markup)
 
 def start_script(fid):
@@ -366,32 +367,32 @@ def write_proc(fid, cmd):
 
 def main_kb(uid):
     kb = types.InlineKeyboardMarkup(row_width=2)
-    kb.add(types.InlineKeyboardButton("📤 رفع ملف جديد", callback_data="nav_upload"))
+    kb.add(types.InlineKeyboardButton("رفع ملف جديد", callback_data="nav_upload", style="success"))
     kb.row(
-        types.InlineKeyboardButton("📁 ملفاتي", callback_data="nav_files"),
-        types.InlineKeyboardButton("🛒 المتجر", callback_data="nav_store")
+        types.InlineKeyboardButton("ملفاتي", callback_data="nav_files", style="danger"),
+        types.InlineKeyboardButton("المتجر", callback_data="nav_store", style="danger")
     )
     kb.row(
-        types.InlineKeyboardButton("💼 محفظتي", callback_data="nav_wallet"),
-        types.InlineKeyboardButton("📊 حسابي", callback_data="nav_stats")
+        types.InlineKeyboardButton("محفظتي", callback_data="nav_wallet", style="primary"),
+        types.InlineKeyboardButton("حسابي", callback_data="nav_stats", style="primary")
     )
     kb.row(
-        types.InlineKeyboardButton("🛠 تثبيت مكتبة", callback_data="nav_lib"),
-        types.InlineKeyboardButton("📖 التعليمات", callback_data="nav_help")
+        types.InlineKeyboardButton("تثبيت مكتبة", callback_data="nav_lib", style="success"),
+        types.InlineKeyboardButton("التعليمات", callback_data="nav_help", style="success")
     )
-    kb.add(types.InlineKeyboardButton("👨‍💻 تواصل مع المطور", url=f"tg://user?id={ADMIN_ID}"))
+    kb.add(types.InlineKeyboardButton("‍ تواصل مع المطور", url=f"tg://user?id={ADMIN_ID}", style="danger"))
     if is_admin(uid):
-        kb.add(types.InlineKeyboardButton("⚙️ لوحة الإدارة", callback_data="nav_admin"))
+        kb.add(types.InlineKeyboardButton("لوحة الإدارة", callback_data="nav_admin", style="primary"))
     return kb
 
 def cancel_kb(data="cancel"):
     kb = types.InlineKeyboardMarkup()
-    kb.add(types.InlineKeyboardButton("❌ إلغاء", callback_data=data))
+    kb.add(types.InlineKeyboardButton("إلغاء", callback_data=data, style="success"))
     return kb
 
 def back_kb(data="nav_main"):
     kb = types.InlineKeyboardMarkup()
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data=data))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data=data, style="success"))
     return kb
 
 @bot.message_handler(commands=['start'])
@@ -470,7 +471,7 @@ def sub_msg(chat_id):
     kb = types.InlineKeyboardMarkup(row_width=1)
     for ch in channels:
         kb.add(types.InlineKeyboardButton(f"📢 {ch['name']}", url=f"https://t.me/{ch['username'].replace('@', '')}"))
-    kb.add(types.InlineKeyboardButton("✅ تحقق", callback_data="check_sub"))
+    kb.add(types.InlineKeyboardButton("تحقق", callback_data="check_sub", style="danger"))
     text = "🔔 <b>اشتراك إجباري</b>\n\nيجب الاشتراك في القنوات التالية:"
     send_msg(chat_id, deco("🔔 اشتراك مطلوب", text), kb)
 
@@ -535,9 +536,9 @@ def callback(call):
             kb = types.InlineKeyboardMarkup(row_width=2)
             kb.add(
                 types.InlineKeyboardButton(f"🎁 الهدية {'✅' if can else '❌'}", callback_data="daily"),
-                types.InlineKeyboardButton("🔗 رابط الإحالة", callback_data="ref")
+                types.InlineKeyboardButton("رابط الإحالة", callback_data="ref", style="success")
             )
-            kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+            kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="danger"))
             edit_msg(call, deco("💼 محفظتي", text), kb)
         elif data == "daily":
             u = users.get(str(uid))
@@ -554,31 +555,31 @@ def callback(call):
             text = f"💰 رصيدك: <code>{u.get('points', 0)}</code>\n💎 الرتبة: {'VIP 👑' if vip else 'مجاني 🆓'}\n\n✅ تم إضافة {gift} نقاط!"
             kb = types.InlineKeyboardMarkup(row_width=2)
             kb.add(
-                types.InlineKeyboardButton("🎁 الهدية ❌", callback_data="daily"),
-                types.InlineKeyboardButton("🔗 رابط الإحالة", callback_data="ref")
+                types.InlineKeyboardButton("الهدية", callback_data="daily", style="success"),
+                types.InlineKeyboardButton("رابط الإحالة", callback_data="ref", style="success")
             )
-            kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+            kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="danger"))
             edit_msg(call, deco("💼 محفظتي", text), kb)
         elif data == "ref":
             info = bot.get_me()
             link = f"https://t.me/{info.username}?start={uid}"
             text = f"🔗 رابطك:\n<code>{link}</code>\n\n💰 كل شخص = 10 نقاط!"
             kb = types.InlineKeyboardMarkup()
-            kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_wallet"))
+            kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_wallet", style="success"))
             edit_msg(call, deco("🔗 رابط الإحالة", text), kb)
         elif data == "nav_help":
             text = "📖 <b>دليل الاستخدام</b>\n\n🚀 الاستضافة:\n• ارفع ملف .py\n• اختر المدة\n• ينتظر الموافقة\n\n💰 النقاط:\n• كل نقطة = ساعة\n• هدية يومية 5-15\n• إحالة = 10\n\n💎 VIP:\n• استضافة غير محدودة\n• بدون خصم نقاط"
             kb = types.InlineKeyboardMarkup()
-            kb.add(types.InlineKeyboardButton("👨‍💻 المطور", url=f"tg://user?id={ADMIN_ID}"))
-            kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+            kb.add(types.InlineKeyboardButton("‍ المطور", url=f"tg://user?id={ADMIN_ID}", style="success"))
+            kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="danger"))
             edit_msg(call, deco("📖 التعليمات", text), kb)
         elif data == "nav_upload":
             kb = types.InlineKeyboardMarkup(row_width=2)
             kb.add(
-                types.InlineKeyboardButton("🆓 مجانية", callback_data="up_free"),
-                types.InlineKeyboardButton("💎 VIP", callback_data="up_pro")
+                types.InlineKeyboardButton("مجانية", callback_data="up_free", style="success"),
+                types.InlineKeyboardButton("VIP", callback_data="up_pro", style="success")
             )
-            kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+            kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="danger"))
             text = "📤 اختر نوع الاستضافة:\n\n🆓 مجانية: بالنقاط\n💎 VIP: غير محدودة"
             edit_msg(call, deco("📤 رفع ملف", text), kb)
         elif data.startswith("up_"):
@@ -607,7 +608,7 @@ def callback(call):
                 icon = "🟢" if running else "🔴"
                 ft = "💎" if f.get('type') == 'pro' else "🆓"
                 kb.add(types.InlineKeyboardButton(f"{icon} {ft} {f.get('file_name', '?')[:25]}", callback_data=f"manage_{fid}"))
-            kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+            kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="danger"))
             running_count = sum(1 for fid in u_files if fid in active_processes and active_processes[fid].poll() is None)
             text = f"📊 الملفات: {len(u_files)}\n🟢 تعمل: {running_count}\n🔴 متوقفة: {len(u_files) - running_count}"
             edit_msg(call, deco("📁 ملفاتي", text), kb)
@@ -619,8 +620,8 @@ def callback(call):
             fid = data.split("_")[1]
             kb = types.InlineKeyboardMarkup(row_width=2)
             kb.add(
-                types.InlineKeyboardButton("✅ نعم", callback_data=f"del_{fid}"),
-                types.InlineKeyboardButton("❌ لا", callback_data=f"manage_{fid}")
+                types.InlineKeyboardButton("نعم", callback_data=f"del_{fid}", style="success"),
+                types.InlineKeyboardButton("لا", callback_data=f"manage_{fid}", style="success")
             )
             edit_msg(call, deco("🗑️ تأكيد", "هل تريد حذف الملف؟"), kb)
         elif data.startswith("del_"):
@@ -685,8 +686,8 @@ def callback(call):
                         exp = e
             text = f"🆔 الآيدي: <code>{uid}</code>\n🔗 المعرف: @{u.get('username', 'لا يوجد')}\n📅 الانضمام: {u.get('join_date', '?')}\n\n💎 الرتبة: {'VIP 👑' if vip else 'مجاني 🆓'}\n⏰ صلاحية VIP: {exp}\n💰 النقاط: <code>{u.get('points', 0)}</code>\n\n📁 الملفات: {len(u_files)}\n🟢 تعمل: {running}"
             kb = types.InlineKeyboardMarkup()
-            kb.add(types.InlineKeyboardButton("💼 محفظتي", callback_data="nav_wallet"))
-            kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+            kb.add(types.InlineKeyboardButton("محفظتي", callback_data="nav_wallet", style="success"))
+            kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="danger"))
             edit_msg(call, deco("📊 حسابي", text), kb)
         elif data == "nav_admin" and is_admin(uid):
             admin_panel(call)
@@ -864,7 +865,7 @@ def store_view(call):
     kb = types.InlineKeyboardMarkup(row_width=2)
     for sid, item in store.items():
         kb.add(types.InlineKeyboardButton(f"📦 {item['name'][:15]} • {item['price']}pt", callback_data=f"buy_{sid}"))
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="danger"))
     users = read_json(USERS_DB)
     text = f"🛒 متجر الملفات\n\n💰 نقاطك: <code>{users.get(str(call.from_user.id), {}).get('points', 0)}</code>"
     edit_msg(call, deco("🛒 المتجر", text), kb)
@@ -880,11 +881,11 @@ def buy_confirm(call, sid):
     kb = types.InlineKeyboardMarkup(row_width=2)
     if pts >= item['price']:
         kb.add(
-            types.InlineKeyboardButton("✅ شراء", callback_data=f"ebuy_{sid}"),
-            types.InlineKeyboardButton("❌ إلغاء", callback_data="nav_store")
+            types.InlineKeyboardButton("شراء", callback_data=f"ebuy_{sid}", style="success"),
+            types.InlineKeyboardButton("إلغاء", callback_data="nav_store", style="success")
         )
     else:
-        kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_store"))
+        kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_store", style="danger"))
     edit_msg(call, deco("🛒 تأكيد", text), kb)
 
 def buy_exec(call, sid):
@@ -925,19 +926,19 @@ def admin_panel(call):
     kb = types.InlineKeyboardMarkup(row_width=2)
     kb.add(types.InlineKeyboardButton("🔓 فتح" if locked else "🔒 قفل", callback_data="lock_bot"))
     kb.add(
-        types.InlineKeyboardButton("👤 المستخدمين", callback_data="adm_users"),
-        types.InlineKeyboardButton("👮 الأدمن", callback_data="adm_admins")
+        types.InlineKeyboardButton("المستخدمين", callback_data="adm_users", style="danger"),
+        types.InlineKeyboardButton("الأدمن", callback_data="adm_admins", style="danger")
     )
     kb.add(
-        types.InlineKeyboardButton("🛒 المتجر", callback_data="adm_store"),
+        types.InlineKeyboardButton("المتجر", callback_data="adm_store", style="primary"),
         types.InlineKeyboardButton(f"⏳ المعلقة ({len(pending)})", callback_data="adm_pending")
     )
     kb.add(
-        types.InlineKeyboardButton("📢 إذاعة", callback_data="adm_broadcast"),
-        types.InlineKeyboardButton("📢 القنوات", callback_data="adm_channels")
+        types.InlineKeyboardButton("إذاعة", callback_data="adm_broadcast", style="success"),
+        types.InlineKeyboardButton("القنوات", callback_data="adm_channels", style="success")
     )
-    kb.add(types.InlineKeyboardButton("🖼 الإعدادات", callback_data="adm_settings"))
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+    kb.add(types.InlineKeyboardButton("الإعدادات", callback_data="adm_settings", style="danger"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="primary"))
     edit_msg(call, deco("⚙️ لوحة الإدارة", text), kb)
 
 def admins_panel(call):
@@ -946,7 +947,7 @@ def admins_panel(call):
     text = f"👮 الأدمن ({len(admins)}):\n\n"
     kb = types.InlineKeyboardMarkup(row_width=1)
     if is_main_admin(uid):
-        kb.add(types.InlineKeyboardButton("➕ إضافة أدمن", callback_data="add_admin"))
+        kb.add(types.InlineKeyboardButton("إضافة أدمن", callback_data="add_admin", style="success"))
     for aid in admins:
         try:
             user = bot.get_chat(aid)
@@ -961,7 +962,7 @@ def admins_panel(call):
                 kb.add(types.InlineKeyboardButton(f"🗑️ إزالة {aid}", callback_data=f"rmadmin_{aid}"))
     if not is_main_admin(uid):
         text += "\n\n⚠️ فقط المالك يمكنه إضافة/إزالة أدمن"
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_admin"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_admin", style="success"))
     edit_msg(call, deco("👮 الأدمن", text), kb)
 
 def add_admin_step(msg, prompt_id):
@@ -1023,10 +1024,10 @@ def user_panel_msg(chat_id, tuid):
         types.InlineKeyboardButton("🆓 سحب VIP" if vip else "💎 منح VIP", callback_data=f"pro_{tuid}")
     )
     kb.add(
-        types.InlineKeyboardButton("💰 شحن", callback_data=f"charge_{tuid}"),
-        types.InlineKeyboardButton("💬 رسالة", callback_data=f"msguser_{tuid}")
+        types.InlineKeyboardButton("شحن", callback_data=f"charge_{tuid}", style="danger"),
+        types.InlineKeyboardButton("رسالة", callback_data=f"msguser_{tuid}", style="danger")
     )
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_admin"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_admin", style="primary"))
     send_msg(chat_id, deco("👤 إدارة المستخدم", text), kb)
 
 def user_panel(call, tuid):
@@ -1052,10 +1053,10 @@ def user_panel(call, tuid):
         types.InlineKeyboardButton("🆓 سحب VIP" if vip else "💎 منح VIP", callback_data=f"pro_{tuid}")
     )
     kb.add(
-        types.InlineKeyboardButton("💰 شحن", callback_data=f"charge_{tuid}"),
-        types.InlineKeyboardButton("💬 رسالة", callback_data=f"msguser_{tuid}")
+        types.InlineKeyboardButton("شحن", callback_data=f"charge_{tuid}", style="danger"),
+        types.InlineKeyboardButton("رسالة", callback_data=f"msguser_{tuid}", style="danger")
     )
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_admin"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_admin", style="primary"))
     edit_msg(call, deco("👤 إدارة المستخدم", text), kb)
 
 def charge_step(msg, tuid, prompt_id):
@@ -1147,10 +1148,10 @@ def pro_remove(call, tuid):
 def store_panel(call):
     store = read_json(STORE_DB)
     kb = types.InlineKeyboardMarkup(row_width=1)
-    kb.add(types.InlineKeyboardButton("➕ إضافة ملف", callback_data="add_store"))
+    kb.add(types.InlineKeyboardButton("إضافة ملف", callback_data="add_store", style="success"))
     for sid, item in store.items():
         kb.add(types.InlineKeyboardButton(f"📦 {item['name'][:20]} • {item['price']}pt", callback_data=f"estore_{sid}"))
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_admin"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_admin", style="primary"))
     text = f"📊 الملفات: {len(store)}"
     edit_msg(call, deco("🛒 إدارة المتجر", text), kb)
 
@@ -1193,10 +1194,10 @@ def store_edit(call, sid):
     text = f"📄 الملف: {item['name']}\n💰 السعر: {item['price']}"
     kb = types.InlineKeyboardMarkup(row_width=2)
     kb.add(
-        types.InlineKeyboardButton("💰 تغيير السعر", callback_data=f"sprice_{sid}"),
-        types.InlineKeyboardButton("🗑️ حذف", callback_data=f"delstore_{sid}")
+        types.InlineKeyboardButton("تغيير السعر", callback_data=f"sprice_{sid}", style="success"),
+        types.InlineKeyboardButton("حذف", callback_data=f"delstore_{sid}", style="success")
     )
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="adm_store"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="adm_store", style="danger"))
     edit_msg(call, deco("📦 تعديل", text), kb)
 
 def store_price_step(msg, sid, prompt_id):
@@ -1307,7 +1308,7 @@ def pending_list(call):
     for fid, f in pending.items():
         ft = "💎" if f.get('type') == 'pro' else "🆓"
         kb.add(types.InlineKeyboardButton(f"{ft} {f.get('file_name', '?')[:25]}", callback_data=f"vpend_{fid}"))
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_admin"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_admin", style="danger"))
     text = f"📊 المعلقة: {len(pending)}"
     edit_msg(call, deco("⏳ الملفات المعلقة", text), kb)
 
@@ -1326,10 +1327,10 @@ def pending_view(call, fid):
     text = f"📦 الملف: {f.get('file_name')}\n👤 المالك: {utext}\n🆔 <code>{f.get('user_id')}</code>\n💎 النوع: {'VIP 👑' if f.get('type') == 'pro' else 'مجاني 🆓'}\n{'⏰ المدة: ' + str(f.get('hours', 0)) + ' ساعة' if f.get('type') == 'free' else ''}\n📅 {f.get('created_at')}\n\n🔍 الكود (أول 40 سطر):\n{preview}"
     kb = types.InlineKeyboardMarkup(row_width=2)
     kb.add(
-        types.InlineKeyboardButton("✅ قبول", callback_data=f"approve_{fid}"),
-        types.InlineKeyboardButton("❌ رفض", callback_data=f"reject_{fid}")
+        types.InlineKeyboardButton("قبول", callback_data=f"approve_{fid}", style="success"),
+        types.InlineKeyboardButton("رفض", callback_data=f"reject_{fid}", style="success")
     )
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="adm_pending"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="adm_pending", style="danger"))
     try:
         bot.delete_message(call.message.chat.id, call.message.message_id)
     except:
@@ -1405,17 +1406,17 @@ def file_panel(call, fid):
     kb = types.InlineKeyboardMarkup(row_width=2)
     kb.add(
         types.InlineKeyboardButton("⏸ إيقاف" if running else "▶️ تشغيل", callback_data=f"toggle_{fid}"),
-        types.InlineKeyboardButton("📟 التيرمنال", callback_data=f"term_{fid}")
+        types.InlineKeyboardButton("التيرمنال", callback_data=f"term_{fid}", style="success")
     )
     kb.add(
-        types.InlineKeyboardButton("🔑 تغيير التوكن", callback_data=f"chtoken_{fid}"),
-        types.InlineKeyboardButton("ℹ️ معلومات التوكن", callback_data=f"tokinfo_{fid}")
+        types.InlineKeyboardButton("تغيير التوكن", callback_data=f"chtoken_{fid}", style="danger"),
+        types.InlineKeyboardButton("ℹ معلومات التوكن", callback_data=f"tokinfo_{fid}", style="danger")
     )
     kb.add(
-        types.InlineKeyboardButton("📥 تحميل", callback_data=f"dl_{fid}"),
-        types.InlineKeyboardButton("🗑️ حذف", callback_data=f"delc_{fid}")
+        types.InlineKeyboardButton("تحميل", callback_data=f"dl_{fid}", style="primary"),
+        types.InlineKeyboardButton("حذف", callback_data=f"delc_{fid}", style="primary")
     )
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_files"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_files", style="success"))
     edit_msg(call, deco("📁 إدارة الملف", text), kb)
 
 def toggle_file(call, fid):
@@ -1453,8 +1454,8 @@ def delete_file(call, fid):
     if not u_files:
         kb = types.InlineKeyboardMarkup()
         kb.add(
-            types.InlineKeyboardButton("📤 رفع ملف", callback_data="nav_upload"),
-            types.InlineKeyboardButton("🏠 الرئيسية", callback_data="nav_main")
+            types.InlineKeyboardButton("رفع ملف", callback_data="nav_upload", style="success"),
+            types.InlineKeyboardButton("الرئيسية", callback_data="nav_main", style="success")
         )
         edit_msg(call, deco("📁 ملفاتي", "لا ملفات."), kb)
     else:
@@ -1464,7 +1465,7 @@ def delete_file(call, fid):
             icon = "🟢" if running else "🔴"
             ft = "💎" if f.get('type') == 'pro' else "🆓"
             kb.add(types.InlineKeyboardButton(f"{icon} {ft} {f.get('file_name', '?')[:25]}", callback_data=f"manage_{fid}"))
-        kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_main"))
+        kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_main", style="danger"))
         edit_msg(call, deco("📁 ملفاتي", f"📊 الملفات: {len(u_files)}"), kb)
 
 def download_file(call, fid):
@@ -1493,10 +1494,10 @@ def terminal(call, fid):
     text = f"📄 {files[fid]['file_name']}\n🟢 {'يعمل' if running else 'متوقف'}\n\n📺 التيرمنال:\n{output}"
     kb = types.InlineKeyboardMarkup(row_width=2)
     kb.add(
-        types.InlineKeyboardButton("🔄 تحديث", callback_data=f"rterm_{fid}"),
-        types.InlineKeyboardButton("⌨️ إدخال", callback_data=f"inp_{fid}")
+        types.InlineKeyboardButton("تحديث", callback_data=f"rterm_{fid}", style="success"),
+        types.InlineKeyboardButton("إدخال", callback_data=f"inp_{fid}", style="success")
     )
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data=f"manage_{fid}"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data=f"manage_{fid}", style="danger"))
     edit_msg(call, deco("📟 التيرمنال", text), kb)
 
 def input_step(msg, fid, prompt_id):
@@ -1546,7 +1547,7 @@ def token_info(call, fid):
         else:
             text = f"❌ التوكن غير صالح\n\n{escape(str(info))}"
         kb = types.InlineKeyboardMarkup()
-        kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data=f"manage_{fid}"))
+        kb.add(types.InlineKeyboardButton("رجوع", callback_data=f"manage_{fid}", style="success"))
         try:
             bot.delete_message(call.message.chat.id, call.message.message_id)
         except:
@@ -1601,10 +1602,10 @@ def channels_panel(call):
     settings = get_settings()
     channels = settings.get('channels', [])
     kb = types.InlineKeyboardMarkup(row_width=1)
-    kb.add(types.InlineKeyboardButton("➕ إضافة قناة", callback_data="add_channel"))
+    kb.add(types.InlineKeyboardButton("إضافة قناة", callback_data="add_channel", style="success"))
     for i, ch in enumerate(channels):
         kb.add(types.InlineKeyboardButton(f"🗑️ {ch['name']}", callback_data=f"delch_{i}"))
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_admin"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_admin", style="primary"))
     text = f"📊 القنوات: {len(channels)}"
     if channels:
         text += "\n\n"
@@ -1653,22 +1654,22 @@ def settings_panel(call):
     has_thumb = "✅" if settings.get('file_thumb') and os.path.exists(settings.get('file_thumb', '')) else "❌"
     text = f"✏️ اسم البوت: {settings.get('bot_name', 'غير محدد')}\n🖼 صورة البوت: {has_img}\n🎨 أيقونة الملفات: {has_thumb}"
     kb = types.InlineKeyboardMarkup(row_width=1)
-    kb.add(types.InlineKeyboardButton("✏️ تغيير الاسم", callback_data="set_name"))
+    kb.add(types.InlineKeyboardButton("تغيير الاسم", callback_data="set_name", style="success"))
     if settings.get('bot_image'):
         kb.add(
-            types.InlineKeyboardButton("🖼 تغيير الصورة", callback_data="set_img"),
-            types.InlineKeyboardButton("🗑️ إزالة الصورة", callback_data="rm_img")
+            types.InlineKeyboardButton("تغيير الصورة", callback_data="set_img", style="danger"),
+            types.InlineKeyboardButton("إزالة الصورة", callback_data="rm_img", style="danger")
         )
     else:
-        kb.add(types.InlineKeyboardButton("🖼 إضافة صورة", callback_data="set_img"))
+        kb.add(types.InlineKeyboardButton("إضافة صورة", callback_data="set_img", style="primary"))
     if settings.get('file_thumb') and os.path.exists(settings.get('file_thumb', '')):
         kb.add(
-            types.InlineKeyboardButton("🎨 تغيير الأيقونة", callback_data="set_thumb"),
-            types.InlineKeyboardButton("🗑️ إزالة الأيقونة", callback_data="rm_thumb")
+            types.InlineKeyboardButton("تغيير الأيقونة", callback_data="set_thumb", style="success"),
+            types.InlineKeyboardButton("إزالة الأيقونة", callback_data="rm_thumb", style="success")
         )
     else:
-        kb.add(types.InlineKeyboardButton("🎨 إضافة أيقونة", callback_data="set_thumb"))
-    kb.add(types.InlineKeyboardButton("🔙 رجوع", callback_data="nav_admin"))
+        kb.add(types.InlineKeyboardButton("إضافة أيقونة", callback_data="set_thumb", style="danger"))
+    kb.add(types.InlineKeyboardButton("رجوع", callback_data="nav_admin", style="primary"))
     edit_msg(call, deco("🖼 الإعدادات", text), kb)
 
 def name_step(msg, prompt_id):
